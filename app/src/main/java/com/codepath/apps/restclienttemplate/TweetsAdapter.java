@@ -15,6 +15,8 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder>  {
@@ -61,6 +63,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         TextView tvBody;
         TextView tvScreenName;
         TextView tvName;
+        TextView tvTime;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -68,12 +71,14 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvName = itemView.findViewById(R.id.tvName);
             tvBody = itemView.findViewById(R.id.tvBody);
             tvScreenName = itemView.findViewById(R.id.tvScreenName);
+            tvTime = itemView.findViewById(R.id.tvTime);
         }
 
         public void bind(Tweet tweet) {
             tvBody.setText(tweet.body);
             tvName.setText(tweet.user.name);
             tvScreenName.setText("@" + tweet.user.screenName);
+            tvTime.setText(TimeFormatter.getTimeDifference(tweet.createdAt));
             Glide.with(context).load(tweet.user.profileImageUrl).transform(new CircleCrop()).into(ivProfileImage);
         }
     }

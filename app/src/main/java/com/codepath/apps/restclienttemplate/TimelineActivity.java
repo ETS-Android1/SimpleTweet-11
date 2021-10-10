@@ -12,9 +12,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,6 +37,7 @@ public class TimelineActivity extends AppCompatActivity {
     TweetsAdapter adapter;
     SwipeRefreshLayout swipeContainer;
     EndlessRecyclerViewScrollListener scrollListener;
+    FloatingActionButton composeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,14 @@ public class TimelineActivity extends AppCompatActivity {
             public void onRefresh() {
                 Log.i(TAG, "fetching new data");
                 populateHomeTimeline();
+            }
+        });
+        composeButton = findViewById(R.id.compose);
+        composeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), ComposeActivity.class);
+                startActivityForResult(intent, REQUEST_CODE);
             }
         });
         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright);
@@ -74,15 +85,15 @@ public class TimelineActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.compose) {
-            Intent intent = new Intent(this, ComposeActivity.class);
-            startActivityForResult(intent, REQUEST_CODE);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//        if (item.getItemId() == R.id.compose) {
+//            Intent intent = new Intent(this, ComposeActivity.class);
+//            startActivityForResult(intent, REQUEST_CODE);
+//            return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

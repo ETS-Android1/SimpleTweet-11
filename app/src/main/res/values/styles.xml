@@ -14,4 +14,12 @@
         <item name="colorPrimary">#00ACEE</item>
     </style>
 
+    <style name="counterStyle">
+        <item name="android:textColor">#808080</item>
+    </style>
+
+    <style name="counterOverrideStyle">
+        <item name="android:textColor">#ff0000</item>
+    </style>
+
 </resources>
